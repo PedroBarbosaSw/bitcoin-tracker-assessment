@@ -5,9 +5,9 @@ import { formatAsUSD, formatPositiveDecimal } from '@/utils/formatUtils';
 import { EyeIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 
 const coins = ref<Coin[]>([
-  { current_price: 64312, id: 'bitcoin', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400', name: 'Bitcoin', symbol: 'btc', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-  { current_price: 3065.28, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628', name: 'Ethereum', symbol: 'eth', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-  { current_price: 1.001, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661', name: 'Theter', symbol: 'tet', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
+  // { current_price: 64312, id: 'bitcoin', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400', name: 'Bitcoin', symbol: 'btc', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
+  // { current_price: 3065.28, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628', name: 'Ethereum', symbol: 'eth', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
+  // { current_price: 1.001, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661', name: 'Theter', symbol: 'tet', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
 ]);
 
 onMounted(async () => {
@@ -21,8 +21,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="max-w-7xl overflow-scroll">
-    <table class="w-full table-auto bg-white shadow-md">
+  <main class="max-w-7xl">
+    <table class="w-full bg-white shadow-md">
       <caption class="p-4 font-semibold text-sm text-gray-900 bg-gray-100 caption-top">
         You can search by date by clicking in the coin you want
       </caption>
@@ -30,7 +30,7 @@ onMounted(async () => {
       <thead class="bg-gray-200">
         <tr class="text-left text-gray-900 text-sm">
           <th></th>
-          <th scope="col" class="p-3 font-semibold sticky left-0">Coin</th>
+          <th scope="col" class="p-3 font-semibold sticky left-0 min-w-[120px]">Coin</th>
           <th class="p-3 font-semibold text-right">Price</th>
           <th class="p-3 font-semibold text-right">24h</th>
           <th class="p-3 font-semibold text-right">Market Cap</th>
@@ -43,9 +43,12 @@ onMounted(async () => {
           :key="coin.id"
           class="hover:bg-gray-100"
         >
-          <td class="pl-3 border-none">
-            <EyeIcon class="w-5 text-gray-700" />
+          <td class="pl-3">
+            <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
+              <EyeIcon class="w-5 text-gray-700 hover:cursor-pointer" />
+            </router-link>
           </td>
+
           <td class="p-3 text-gray-700 hover:cursor-pointer sticky left-0">
             <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
               <div class="flex items-center gap-2">
@@ -67,11 +70,11 @@ onMounted(async () => {
           </td>
 
           <td
-            class="p-3 font-normal text-sm text-gray-700 text-right"
+            class="p-3 font-normal text-sm text-gray-700"
           >
             <div
               :class="{'text-red-500': (coin.price_change_percentage_24h || 0) < 0, 'text-green-500': (coin.price_change_percentage_24h || 0) >= 0}"
-              class="flex items-center font-medium"
+              class="flex items-center justify-end font-medium"
             >
               <template v-if="(coin.price_change_percentage_24h || 0) < 0">
                 <ChevronDownIcon class="inline-block w-4 h-4 mr-1" />
