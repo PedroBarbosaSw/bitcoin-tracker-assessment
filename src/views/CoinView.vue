@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CoinGeckoService } from '@/services/CoinGeckoService';
-import { formatDateToDDMMYYYY } from '@/utils/dateUtil';
+import { formatDateToDDMMYYYY } from '@/utils/dateUtils';
 import { formatAsUSD } from '@/utils/formatUtils';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';

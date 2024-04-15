@@ -14,7 +14,7 @@ const coins = ref<Coin[]>([
 onMounted(async () => {
   // setInterval(() => {
     // latestPrice.value = await fetchBitcoinPrice();
-    coins.value = await CoinGeckoService.GetCoinsMarkets(['bitcoin', 'ethereum', 'tether']);
+    coins.value = await CoinGeckoService.GetCoinsMarkets(['bitcoin', 'ethereum', 'tether', 'dacxi', 'solana']);
     // console.log('teste', teste);
     // coinsPrice.value = (await CoinGeckoService.GetPrices(['bitcoin', 'ethereum']));
   // }, 10000);
@@ -39,11 +39,7 @@ onMounted(async () => {
       </thead>
 
       <tbody class="divide-y divide-gray-300">
-        <tr
-          v-for="coin in coins"
-          :key="coin.id"
-          class="hover:bg-gray-100"
-        >
+        <tr v-for="coin in coins" :key="coin.id">
           <td class="pl-3">
             <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
               <EyeIcon class="w-5 text-gray-700 hover:cursor-pointer" />

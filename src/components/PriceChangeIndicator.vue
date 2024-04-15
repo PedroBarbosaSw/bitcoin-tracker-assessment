@@ -25,7 +25,7 @@ defineProps({
       <ChevronUpIcon class="inline-block w-4 h-4 mr-1" />
     </template>
 
-    {{ priceChange }}%
+    {{ Math.abs(priceChange) }}%
   </div>
 </template>
 
