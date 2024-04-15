@@ -8,10 +8,14 @@ interface Coin {
   price_change_percentage_24h?: number;
 }
 
-interface CoinWithMarketPrice extends Omit<Coin, 'current_price'> {
+interface CoinMarketPrice extends Omit<Coin, 'current_price' | 'image' | 'price_change_percentage_24h'> {
   market_data: {
     current_price: {
       [key: string]: number;
     };
+    price_change_percentage_24h?: number;
   };
+  image: {
+    small: string;
+  }
 }

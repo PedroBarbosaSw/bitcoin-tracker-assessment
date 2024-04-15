@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { CoinGeckoService } from '@/services/CoinGeckoService';
-import { formatAsUSD, formatPositiveDecimal } from '@/utils/formatUtils';
-import { EyeIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
+import { formatAsUSD } from '@/utils/formatUtils';
+import { EyeIcon } from '@heroicons/vue/24/solid';
+import PriceChangeIndicator from '@/components/PriceChangeIndicator.vue';
 
 const coins = ref<Coin[]>([
   // { current_price: 64312, id: 'bitcoin', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400', name: 'Bitcoin', symbol: 'btc', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
@@ -21,8 +22,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="max-w-7xl">
-    <table class="w-full bg-white shadow-md">
+  <main class="max-w-screen-lg">
+    <table class="w-full bg-white rounded-md">
       <caption class="p-4 font-semibold text-sm text-gray-900 bg-gray-100 caption-top">
         You can search by date by clicking in the coin you want
       </caption>
@@ -49,7 +50,7 @@ onMounted(async () => {
             </router-link>
           </td>
 
-          <td class="p-3 text-gray-700 hover:cursor-pointer sticky left-0">
+          <td class="p-3 text-gray-700 hover:cursor-pointer sticky left-0 bg-white">
             <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
               <div class="flex items-center gap-2">
 
@@ -72,20 +73,7 @@ onMounted(async () => {
           <td
             class="p-3 font-normal text-sm text-gray-700"
           >
-            <div
-              :class="{'text-red-500': (coin.price_change_percentage_24h || 0) < 0, 'text-green-500': (coin.price_change_percentage_24h || 0) >= 0}"
-              class="flex items-center justify-end font-medium"
-            >
-              <template v-if="(coin.price_change_percentage_24h || 0) < 0">
-                <ChevronDownIcon class="inline-block w-4 h-4 mr-1" />
-              </template>
-
-              <template v-else>
-                <ChevronUpIcon class="inline-block w-4 h-4 mr-1" />
-              </template>
-
-              {{ formatPositiveDecimal(coin.price_change_percentage_24h || 0) }}%
-            </div>
+            <price-change-indicator :priceChange="coin.price_change_percentage_24h || 0" />
           </td>
 
           <td

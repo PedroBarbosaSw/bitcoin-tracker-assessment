@@ -9,7 +9,7 @@ export const CoinGeckoService = {
 
     return data;
   },
-  GetCoin: async (coinId: string): Promise<CoinWithMarketPrice> => {
+  GetCoin: async (coinId: string): Promise<CoinMarketPrice> => {
     try {
       const { data } = await ApiClient.client.get(`/coins/${coinId}`);
 
@@ -18,7 +18,7 @@ export const CoinGeckoService = {
       throw new Error(`Failed to fetch coin: ${(error as AxiosError).message}`);
     }
   },
-  GetHistoricalData: async (coinId: string, date: string): Promise<CoinWithMarketPrice> => {
+  GetHistoricalData: async (coinId: string, date: string): Promise<CoinMarketPrice> => {
     try {
       const { data } = await ApiClient.client.get(`/coins/${coinId}/history`, {
         params: {
