@@ -1,20 +1,22 @@
-# bitcoin-price-assessment
+# CoinGecko Dashboard - Keep Track of Cryptocurrencies
 
-This template should help get you started developing with Vue 3 in Vite.
+## Overview
 
-## Recommended IDE Setup
+This dashboard leverages the CoinGecko API to deliver real-time data on cryptocurrencies such as Bitcoin, Ethereum, Tether, and DACXI. It is designed to provide cryptocurrency enthusiasts and investors with up-to-the-minute price information, market cap statistics, and 24-hour price changes.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Technologies Used
 
-## Type Support for `.vue` Imports in TS
+- **Vue 3**: For building the user interface
+- **TypeScript**: For type-safe code
+- **Tailwind CSS**: For styling
+- **Axios**: For making API requests
+- **Vitest**: For unit testing
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Key Features
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+- **Real-Time Data**: Visualize live cryptocurrency data.
+- **Historical Data**: Search and view historical prices by date.
+- **Responsive Design**: Fully responsive layout for all devices.
 
 ```sh
 npm install
@@ -32,27 +34,7 @@ npm run dev
 npm run build
 ```
 
-### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
-
-```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
+### Run Tests with [Vitest](https://www.cypress.io/)
 
 ### Lint with [ESLint](https://eslint.org/)
 
