@@ -2,14 +2,16 @@
 import { CoinGeckoService } from '@/services/CoinGeckoService'
 import { formatDateToDDMMYYYY } from '@/utils/dateUtils'
 import { formatAsUSD } from '@/utils/formatUtils'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { ArrowLeftIcon } from '@heroicons/vue/24/solid'
 import PriceChangeIndicator from '@/components/PriceChangeIndicator.vue'
+import CoinSkeleton from '@/components/CoinSkeleton.vue'
 
 const route = useRoute()
 const coinId = route.params.coinId as string
 
+const isLoading = ref(true);
 const coin = ref<CoinMarketPrice>()
 const selectedDate = ref('')
 
@@ -27,12 +29,25 @@ const fetchHistoricalData = async () => {
 }
 
 onMounted(async () => {
-  coin.value = await CoinGeckoService.GetCoin(coinId)
+  async function fetchCoin() {
+    coin.value = await CoinGeckoService.GetCoin(coinId)
+    isLoading.value = false;
+  }
+
+  fetchCoin();
+
+  const intervalId = setInterval(fetchCoin, 10000)
+
+  onUnmounted(() => {
+    clearInterval(intervalId)
+  })
 })
 </script>
 
 <template>
-  <div class="p-4">
+  <coin-skeleton v-if="isLoading" />
+
+  <div v-else class="p-4">
     <router-link to="/" class="flex items-center gap-2 text-gray-700 font-bold">
       <ArrowLeftIcon class="w-4" />
 
@@ -56,9 +71,12 @@ onMounted(async () => {
       <img :src="coin?.image.small" width="24" height="24" />
 
       <span class="font-bold text-gray-900 text-base">{{ coin?.name }}</span>
-      <small class="uppercase font-normal text-gray-500"
-        >{{ coin?.symbol }} <span class="capitalize">price</span></small
-      >
+
+      <small class="uppercase font-normal text-gray-500">
+        {{ coin?.symbol }}
+        
+        <span class="capitalize">price</span>
+      </small>
     </div>
 
     <div class="flex items-center gap-2 mt-2">

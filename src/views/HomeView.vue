@@ -1,34 +1,35 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { CoinGeckoService } from '@/services/CoinGeckoService'
 import { formatAsUSD } from '@/utils/formatUtils'
 import { EyeIcon } from '@heroicons/vue/24/solid'
 import PriceChangeIndicator from '@/components/PriceChangeIndicator.vue'
 
-const coins = ref<Coin[]>([
-  // { current_price: 64312, id: 'bitcoin', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400', name: 'Bitcoin', symbol: 'btc', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-  // { current_price: 3065.28, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628', name: 'Ethereum', symbol: 'eth', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-  // { current_price: 1.001, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661', name: 'Theter', symbol: 'tet', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-])
+const coins = ref<Coin[]>([])
 
-onMounted(async () => {
-  // setInterval(() => {
-  // latestPrice.value = await fetchBitcoinPrice();
-  coins.value = await CoinGeckoService.GetCoinsMarkets([
-    'bitcoin',
-    'ethereum',
-    'tether',
-    'dacxi',
-    'solana'
-  ])
-  // console.log('teste', teste);
-  // coinsPrice.value = (await CoinGeckoService.GetPrices(['bitcoin', 'ethereum']));
-  // }, 10000);
-})
+onMounted(() => {
+  async function fetchCoins() {
+    coins.value = await CoinGeckoService.GetCoinsMarkets([
+      'bitcoin',
+      'ethereum',
+      'tether',
+      'dacxi',
+      'solana'
+    ]);
+  }
+
+  fetchCoins();
+
+  const intervalId = setInterval(fetchCoins, 10000);
+
+  onUnmounted(() => {
+    clearInterval(intervalId)
+  })
+});
 </script>
 
 <template>
-  <main class="max-w-screen-lg">
+  <main>
     <table class="w-full bg-white rounded-md">
       <caption class="p-4 font-semibold text-sm text-gray-900 bg-gray-100 caption-top">
         You can search by date by clicking in the coin you want
