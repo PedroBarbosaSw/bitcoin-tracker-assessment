@@ -54,13 +54,13 @@ onMounted(async () => {
       Go back
     </router-link>
 
-    <form class="flex flex-col gap-2 mt-4">
+    <form class="flex flex-col gap-2 mt-4" @submit.prevent="fetchHistoricalData">
       <label for="date" class="text-gray-500">Select a date</label>
 
       <input type="date" v-model="selectedDate" />
 
       <button
-        @click="fetchHistoricalData"
+        type="submit"
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
       >
         Search
