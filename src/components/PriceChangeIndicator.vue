@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 
 defineProps({
   priceChange: {
     type: Number,
     default: 0
   }
-});
+})
 </script>
 
 <template>
@@ -28,4 +28,3 @@ defineProps({
     {{ Math.abs(priceChange) }}%
   </div>
 </template>
-

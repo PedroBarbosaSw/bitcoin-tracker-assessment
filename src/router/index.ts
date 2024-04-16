@@ -13,11 +13,6 @@ const router = createRouter({
       path: '/coins/:coinId',
       name: 'coin',
       component: () => import('../views/CoinView.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
     }
   ]
 })

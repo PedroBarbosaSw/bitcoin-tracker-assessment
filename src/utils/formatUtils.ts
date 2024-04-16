@@ -8,6 +8,6 @@ export const formatAsUSD = (amount: number): string => {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 3,
-    maximumFractionDigits: 3,
-  }).format(amount);
-};
+    maximumFractionDigits: 3
+  }).format(amount)
+}

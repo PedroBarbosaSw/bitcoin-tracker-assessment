@@ -4,6 +4,6 @@
  * @returns The date string converted to DD-MM-YYYY format.
  */
 export const formatDateToDDMMYYYY = (date: string) => {
-  const parts = date.split('-');
-  return `${parts[2]}-${parts[1]}-${parts[0]}`;
-};
+  const parts = date.split('-')
+  return `${parts[2]}-${parts[1]}-${parts[0]}`
+}

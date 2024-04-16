@@ -1,11 +1,11 @@
 interface GetAllCoinsResponse {
-  id: string;
-  image: string;
-  name: string;
+  id: string
+  image: string
+  name: string
 }
 
 interface GetPricesResponse {
-  [key: string]: { usd: number };
+  [key: string]: { usd: number }
 }
 
 interface GetCoinsMarketsResponse {

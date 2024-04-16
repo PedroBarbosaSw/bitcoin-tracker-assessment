@@ -1,21 +1,23 @@
-import ApiClient from "@/config/axios-config";
-import type { AxiosError } from "axios";
+import ApiClient from '@/config/axios-config'
+import type { AxiosError } from 'axios'
 
 export const CoinGeckoService = {
   GetCoinsMarkets: async (coinIds: string[]): Promise<Coin[]> => {
-    const ids = coinIds.join(',');
+    const ids = coinIds.join(',')
 
-    const { data } = await ApiClient.client.get('/coins/markets', { params: { vs_currency: 'usd', ids: ids }});
+    const { data } = await ApiClient.client.get('/coins/markets', {
+      params: { vs_currency: 'usd', ids: ids }
+    })
 
-    return data;
+    return data
   },
   GetCoin: async (coinId: string): Promise<CoinMarketPrice> => {
     try {
-      const { data } = await ApiClient.client.get(`/coins/${coinId}`);
+      const { data } = await ApiClient.client.get(`/coins/${coinId}`)
 
-      return data;
+      return data
     } catch (error) {
-      throw new Error(`Failed to fetch coin: ${(error as AxiosError).message}`);
+      throw new Error(`Failed to fetch coin: ${(error as AxiosError).message}`)
     }
   },
   GetHistoricalData: async (coinId: string, date: string): Promise<CoinMarketPrice> => {
@@ -23,13 +25,13 @@ export const CoinGeckoService = {
       const { data } = await ApiClient.client.get(`/coins/${coinId}/history`, {
         params: {
           vs_currency: 'usd',
-          date,
+          date
         }
-      });
+      })
 
-      return data;
+      return data
     } catch (error) {
-      throw new Error(`Failed to fetch historical prices: ${(error as AxiosError).message}`);
+      throw new Error(`Failed to fetch historical prices: ${(error as AxiosError).message}`)
     }
-  },
+  }
 }

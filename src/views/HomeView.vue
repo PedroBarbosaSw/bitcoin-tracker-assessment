@@ -1,22 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { CoinGeckoService } from '@/services/CoinGeckoService';
-import { formatAsUSD } from '@/utils/formatUtils';
-import { EyeIcon } from '@heroicons/vue/24/solid';
-import PriceChangeIndicator from '@/components/PriceChangeIndicator.vue';
+import { onMounted, ref } from 'vue'
+import { CoinGeckoService } from '@/services/CoinGeckoService'
+import { formatAsUSD } from '@/utils/formatUtils'
+import { EyeIcon } from '@heroicons/vue/24/solid'
+import PriceChangeIndicator from '@/components/PriceChangeIndicator.vue'
 
 const coins = ref<Coin[]>([
   // { current_price: 64312, id: 'bitcoin', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400', name: 'Bitcoin', symbol: 'btc', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
   // { current_price: 3065.28, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628', name: 'Ethereum', symbol: 'eth', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
   // { current_price: 1.001, id: 'ethereum', image: 'https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661', name: 'Theter', symbol: 'tet', market_cap: 1266025854655, price_change_percentage_24h: 0.5 },
-]);
+])
 
 onMounted(async () => {
   // setInterval(() => {
-    // latestPrice.value = await fetchBitcoinPrice();
-    coins.value = await CoinGeckoService.GetCoinsMarkets(['bitcoin', 'ethereum', 'tether', 'dacxi', 'solana']);
-    // console.log('teste', teste);
-    // coinsPrice.value = (await CoinGeckoService.GetPrices(['bitcoin', 'ethereum']));
+  // latestPrice.value = await fetchBitcoinPrice();
+  coins.value = await CoinGeckoService.GetCoinsMarkets([
+    'bitcoin',
+    'ethereum',
+    'tether',
+    'dacxi',
+    'solana'
+  ])
+  // console.log('teste', teste);
+  // coinsPrice.value = (await CoinGeckoService.GetPrices(['bitcoin', 'ethereum']));
   // }, 10000);
 })
 </script>
@@ -41,17 +47,16 @@ onMounted(async () => {
       <tbody class="divide-y divide-gray-300">
         <tr v-for="coin in coins" :key="coin.id">
           <td class="pl-3">
-            <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
+            <router-link :to="{ name: 'coin', params: { coinId: coin.id } }">
               <EyeIcon class="w-5 text-gray-700 hover:cursor-pointer" />
             </router-link>
           </td>
 
           <td class="p-3 text-gray-700 hover:cursor-pointer sticky left-0 bg-white">
-            <router-link :to="{ name: 'coin', params: { coinId: coin.id} }">
+            <router-link :to="{ name: 'coin', params: { coinId: coin.id } }">
               <div class="flex items-center gap-2">
-
                 <img :src="coin.image" width="24" height="24" class="max-h-6" />
-  
+
                 <div class="flex flex-col">
                   <span class="font-semibold text-base">{{ coin.name }}</span>
                   <small class="uppercase font-medium text-gray-500">{{ coin.symbol }}</small>
@@ -60,21 +65,15 @@ onMounted(async () => {
             </router-link>
           </td>
 
-          <td
-            class="p-3 font-normal text-sm text-gray-700 text-right"
-          >
+          <td class="p-3 font-normal text-sm text-gray-700 text-right">
             {{ formatAsUSD(coin.current_price) }}
           </td>
 
-          <td
-            class="p-3 font-normal text-sm text-gray-700"
-          >
+          <td class="p-3 font-normal text-sm text-gray-700">
             <price-change-indicator :priceChange="coin.price_change_percentage_24h || 0" />
           </td>
 
-          <td
-            class="p-3 font-normal text-sm text-gray-700 text-right"
-          >
+          <td class="p-3 font-normal text-sm text-gray-700 text-right">
             {{ formatAsUSD(coin.market_cap || 0) }}
           </td>
         </tr>
