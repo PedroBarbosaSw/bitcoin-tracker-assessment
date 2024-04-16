@@ -17,18 +17,18 @@ onMounted(() => {
       'tether',
       'dacxi',
       'solana'
-    ]);
+    ])
     isLoading.value = false
   }
 
-  fetchCoins();
+  fetchCoins()
 
-  const intervalId = setInterval(fetchCoins, 10000);
+  const intervalId = setInterval(fetchCoins, 10000)
 
   onUnmounted(() => {
     clearInterval(intervalId)
   })
-});
+})
 </script>
 
 <template>
@@ -58,12 +58,12 @@ onMounted(() => {
                 <EyeIcon class="w-5 text-gray-700 hover:cursor-pointer" />
               </router-link>
             </td>
-  
+
             <td class="p-3 text-gray-700 hover:cursor-pointer sticky left-0 bg-white">
               <router-link :to="{ name: 'coin', params: { coinId: coin.id } }">
                 <div class="flex items-center gap-2">
                   <img :src="coin.image" width="24" height="24" class="max-h-6" />
-  
+
                   <div class="flex flex-col">
                     <span class="font-semibold text-base">{{ coin.name }}</span>
                     <small class="uppercase font-medium text-gray-500">{{ coin.symbol }}</small>
@@ -71,15 +71,15 @@ onMounted(() => {
                 </div>
               </router-link>
             </td>
-  
+
             <td class="p-3 font-normal text-sm text-gray-700 text-right">
               {{ formatAsUSD(coin.current_price) }}
             </td>
-  
+
             <td class="p-3 font-normal text-sm text-gray-700">
               <price-change-indicator :priceChange="coin.price_change_percentage_24h || 0" />
             </td>
-  
+
             <td class="p-3 font-normal text-sm text-gray-700 text-right">
               {{ formatAsUSD(coin.market_cap || 0) }}
             </td>

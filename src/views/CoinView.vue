@@ -11,7 +11,7 @@ import CoinSkeleton from '@/components/CoinSkeleton.vue'
 const route = useRoute()
 const coinId = route.params.coinId as string
 
-const isLoading = ref(true);
+const isLoading = ref(true)
 const coin = ref<CoinMarketPrice>()
 const selectedDate = ref('')
 
@@ -31,10 +31,10 @@ const fetchHistoricalData = async () => {
 onMounted(async () => {
   async function fetchCoin() {
     coin.value = await CoinGeckoService.GetCoin(coinId)
-    isLoading.value = false;
+    isLoading.value = false
   }
 
-  fetchCoin();
+  fetchCoin()
 
   const intervalId = setInterval(fetchCoin, 10000)
 
@@ -74,7 +74,7 @@ onMounted(async () => {
 
       <small class="uppercase font-normal text-gray-500">
         {{ coin?.symbol }}
-        
+
         <span class="capitalize">price</span>
       </small>
     </div>
