@@ -12,24 +12,25 @@ const route = useRoute()
 const coinId = route.params.coinId as string
 
 const isLoading = ref(true)
+const continueUpdating = ref(true)
 const coin = ref<CoinMarketPrice>()
 const selectedDate = ref('')
 
 const fetchHistoricalData = async () => {
   if (selectedDate.value) {
-    const historicalPrice = await CoinGeckoService.GetHistoricalData(
+    coin.value = await CoinGeckoService.GetHistoricalData(
       coinId,
       formatDateToDDMMYYYY(selectedDate.value)
     )
 
-    if (historicalPrice) {
-      coin.value = historicalPrice
-    }
+    continueUpdating.value = false
   }
 }
 
 onMounted(async () => {
   async function fetchCoin() {
+    if (!continueUpdating.value) return
+
     coin.value = await CoinGeckoService.GetCoin(coinId)
     isLoading.value = false
   }
